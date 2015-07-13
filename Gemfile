@@ -23,6 +23,7 @@ gem 'bootstrap_form', github: 'bootstrap-ruby/rails-bootstrap-forms'
 gem 'kaminari'
 gem 'bootstrap-kaminari-views'
 
+gem 'cancancan', '~> 1.10'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-github'
