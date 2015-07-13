@@ -8,4 +8,5 @@ class PostTest < ActiveSupport::TestCase
 #test any user can make a post
 
 #test admin and user can edit/delete comment
+
 end
