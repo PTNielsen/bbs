@@ -1,10 +1,18 @@
 h1= @board.name
 
 h4 Moderated by 
-p= @board.moderator.email
+|   #{@board.moderator.email}
+
+br/
+br/
+
+= link_to "Add Post", new_board_post_path(@board), class: "btn btn-default"
+
+br/
+br/
 
 ul
--@comments.each do |comment|
-  li= comment.body
-  p= comment.author.email
-
+- @posts.each do |post|
+  li= link_to post.title, @board
+  |  by #{post.author.email}
+  br/
