@@ -1,0 +1,10 @@
+h1= @board.name
+
+h4 Moderated by 
+p= @board.moderator.email
+
+ul
+-@comments.each do |comment|
+  li= comment.body
+  p= comment.author.email
+
