@@ -13,6 +13,8 @@ br/
 
 ul
 - @posts.each do |post|
-  li= link_to post.title, @board
-  |  by #{post.author.email}
+  li= link_to post.title, board_post_path(@board, post)
+  |  - #{post.author.email}
   br/
+
+br/

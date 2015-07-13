@@ -1,1 +1,20 @@
-h1 Yeyadhga
+h1= @post.title
+
+|  Authored by #{@post.author.email}
+
+h4= @post.body
+
+br/
+
+= link_to "Add Comment", new_board_post_comment_path(params[:board_id], params[:id]), class: "btn btn-default"
+
+br/
+br/
+
+p Comments:
+
+ul
+- @comments.each do |comment|
+  li= comment.body
+  |  - #{comment.author.email}
+  br/

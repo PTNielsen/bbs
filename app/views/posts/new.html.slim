@@ -1,6 +1,6 @@
 = bootstrap_form_for(@post, url: board_posts_path, method: :post) do |f|
   = f.text_field :title
-  = f.text_field :body
+  = f.text_area :body
   = f.hidden_field :author_id, value: current_user.id
   = f.hidden_field :board_id, value: @board.id
   button.btn.btn-primary Submit

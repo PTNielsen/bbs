@@ -1,0 +1,5 @@
+= bootstrap_form_for(@comment, url: board_post_comments_path, method: :post) do |f|
+  = f.text_area :body
+  = f.hidden_field :author_id, value: current_user.id
+  = f.hidden_field :post_id, value: @post.id
+  button.btn.btn-primary Submit

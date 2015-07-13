@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find_by_id params[:id]
+    @comments = @post.comments
   end
 
   def new
@@ -10,7 +11,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(create_post_params)
+    @post = Post.new(post_params)
     @board = Board.find_by_id params[:board_id]
     if @post.save
       redirect_to @board, notice: "Post created"
@@ -27,11 +28,8 @@ class PostsController < ApplicationController
 
 private
 
-  def create_post_params
+  def post_params
     params.require(:post).permit(:title, :body, :author_id, :board_id)
-  end
-
-  def show_post_params
   end
 
 end
