@@ -44,7 +44,7 @@ class BoardsController < ApplicationController
   def destroy
     @board = Board.find params[:id]
     authorize! :destroy, @board
-    @board.delete[:id]
+    @board.delete
 
     redirect_to root_path, notice: "#{@board.name} has been deleted"
   end
