@@ -4,6 +4,15 @@ h4 Moderated by
 |   #{@board.moderator.email}
 
 br/
+
+= link_to "Edit Board", edit_board_path(@board), class: "btn btn-default"
+
+br/
+br/
+
+= link_to "Delete Board", board_path(@board), method: :delete, class: "btn btn-default", data: {confirm: "Are you sure?"}
+
+br/
 br/
 
 = link_to "Add Post", new_board_post_path(@board), class: "btn btn-default"
@@ -15,6 +24,7 @@ ul
 - @posts.each do |post|
   li= link_to post.title, board_post_path(@board, post)
   |  - #{post.author.email}
+  br/
   br/
 
 br/
