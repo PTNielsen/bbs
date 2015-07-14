@@ -6,12 +6,14 @@ h4= @post.body
 
 br/
 
-= link_to "Edit Post", edit_board_post_path(@board, @post), class: "btn btn-default"
+- if can? :update, @post
+  = link_to "Edit Post", edit_board_post_path(@board, @post), class: "btn btn-default"
 
 br/
 br/
 
-= link_to "Delete Post", board_post_path(@board, @post), method: :delete, class: "btn btn-default", data: {confirm: "Are you sure?"}
+- if can? :destroy, @post
+  = link_to "Delete Post", board_post_path(@board, @post), method: :delete, class: "btn btn-default", data: {confirm: "Are you sure?"}
 
 br/ 
 br/

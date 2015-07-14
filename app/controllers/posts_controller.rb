@@ -1,19 +1,25 @@
 class PostsController < ApplicationController
+  skip_before_action :authenticate_user!, only: :show
+
+  skip_authorization_check only: :show
 
   def show
     @post = Post.find_by_id params[:id]
     @comments = @post.comments
     @board = Board.find_by_id params[:board_id]
+    authorize! :read, @post
   end
 
   def new
     @post = Post.new
     @board = Board.find_by_id params[:board_id]
+    authorize! :create, @post
   end
 
   def create
     @post = Post.new(create_post_params)
     @board = Board.find_by_id params[:board_id]
+    authorize! :create, @post
     if @post.save
       redirect_to @board, notice: "Post created"
     else
@@ -23,10 +29,12 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find_by_id params[:id]
+    authorize! :update, @post
   end
 
   def update
     @post = Post.find_by_id params[:id]
+    authorize! :update, @post
     @board = Board.find_by_id params[:board_id]
     @post.update(edit_post_params)
 
@@ -35,6 +43,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post = Post.find_by_id params[:id]
+    authorize! :destroy, @post
     @board = Board.find_by_id params[:board_id]
     @post.delete[:id]
 

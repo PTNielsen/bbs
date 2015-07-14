@@ -1,6 +1,7 @@
 h1 Boards:
 
-= link_to "Add Board", new_board_path, class: "btn btn-default"
+- if can? :create, @boards
+  = link_to "Add Board", new_board_path, class: "btn btn-default"
 
 ul
 - @boards.each do |board|
