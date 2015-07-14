@@ -10,6 +10,7 @@ class Ability
     else 
         can :read, :all
         can :create, Post
+        can :create, Comment
     end
 
     can [:update, :destroy], Post, author_id: user.id

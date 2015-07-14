@@ -8,8 +8,8 @@ class BoardsController < ApplicationController
   end
 
   def show
-    @board = Board.find_by_id params[:id]
-    @posts = @board.posts
+    @board = Board.find params[:id]
+    @posts = @board.posts.includes(:author)
     authorize! :read, @board
   end
 
@@ -29,12 +29,12 @@ class BoardsController < ApplicationController
   end
 
   def edit
-    @board = Board.find_by_id params[:id]
+    @board = Board.find params[:id]
     authorize! :update, @board
   end
 
   def update
-    @board = Board.find_by_id params[:id]
+    @board = Board.find params[:id]
     authorize! :update, @board
     @board.update(edit_board_params)
 
@@ -42,7 +42,7 @@ class BoardsController < ApplicationController
   end
 
   def destroy
-    @board = Board.find_by_id params[:id]
+    @board = Board.find params[:id]
     authorize! :destroy, @board
     @board.delete[:id]
 

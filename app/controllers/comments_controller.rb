@@ -2,13 +2,15 @@ class CommentsController < ApplicationController
 
   def new
     @comment = Comment.new
-    @post = Post.find_by_id params[:post_id]
+    @post = Post.find params[:post_id]
+    authorize! :create, @comment
   end
 
   def create
     @comment = Comment.new(comment_params)
-    @post = Post.find_by_id params[:post_id]
-    @board = Board.find_by_id params[:board_id]
+    @post = Post.find params[:post_id]
+    @board = Board.find params[:board_id]
+    authorize! :create, @comment
     if @comment.save
       redirect_to board_post_path(@board, @post), notice: "Comment posted"
     else

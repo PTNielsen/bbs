@@ -1,9 +1,10 @@
 h1= @post.title
 
-|  Authored by #{@post.author.email}
-
 h4= @post.body
 
+|  Authored by #{@post.author.email}
+
+br/
 br/
 
 - if can? :update, @post
@@ -29,7 +30,6 @@ ul
 - @comments.each do |comment|
   li= comment.body
   |  - #{comment.author.email}
-  br/
   br/
 
 br/

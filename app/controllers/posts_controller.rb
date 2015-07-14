@@ -4,21 +4,21 @@ class PostsController < ApplicationController
   skip_authorization_check only: :show
 
   def show
-    @post = Post.find_by_id params[:id]
-    @comments = @post.comments
-    @board = Board.find_by_id params[:board_id]
+    @post = Post.find params[:id]
+    @comments = @post.comments.includes(:author)
+    @board = Board.find params[:board_id]
     authorize! :read, @post
   end
 
   def new
     @post = Post.new
-    @board = Board.find_by_id params[:board_id]
+    @board = Board.find params[:board_id]
     authorize! :create, @post
   end
 
   def create
     @post = Post.new(create_post_params)
-    @board = Board.find_by_id params[:board_id]
+    @board = Board.find params[:board_id]
     authorize! :create, @post
     if @post.save
       redirect_to @board, notice: "Post created"
@@ -28,24 +28,24 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.find_by_id params[:id]
+    @post = Post.find params[:id]
     authorize! :update, @post
   end
 
   def update
-    @post = Post.find_by_id params[:id]
+    @post = Post.find params[:id]
     authorize! :update, @post
-    @board = Board.find_by_id params[:board_id]
+    @board = Board.find params[:board_id]
     @post.update(edit_post_params)
 
     redirect_to board_post_path(@board, @post), notice: "Post information updated"
   end
 
   def destroy
-    @post = Post.find_by_id params[:id]
+    @post = Post.find params[:id]
     authorize! :destroy, @post
-    @board = Board.find_by_id params[:board_id]
-    @post.delete[:id]
+    @board = Board.find params[:board_id]
+    @post.delete
 
     redirect_to board_path(@board), notice: "#{@post.title} has been deleted"
   end
