@@ -8,12 +8,9 @@ class Ability
     if user.admin?
         can :manage, :all
     else 
-        can :read, :all? 
+        can :read, :all
+        can :create, Post
     end
-
-    can :read, Board
-    can :read, Post
-    can :create, Post
 
     can [:update, :destroy], Post, author_id: user.id
     can [:update, :destroy], Comment, author_id: user.id
