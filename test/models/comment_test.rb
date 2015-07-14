@@ -5,8 +5,4 @@ class CommentTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-#test any user can comment
-
-#test only admins and user can delete comment
-
 end
