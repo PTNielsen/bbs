@@ -7,7 +7,7 @@ class Ability
 
     if user.admin?
         can :manage, :all
-    else 
+    else
         can :read, :all
         can :create, Post
         can :create, Comment

@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.new(create_comment_params)
     @post = Post.find params[:post_id]
     @board = Board.find params[:board_id]
     authorize! :create, @comment
@@ -19,15 +19,42 @@ class CommentsController < ApplicationController
   end
 
   def edit
+    @comment = Comment.find params[:id]
+    authorize! :update, @comment
   end
 
-  def delete
+  def update
+    @comment = Comment.find params[:id]
+    @post = Post.find params[:post_id]
+    @board = Board.find params[:board_id]
+    authorize! :update, @comment
+
+    @comment.update(edit_comment_params)
+    if @comment.save
+      redirect_to board_post_path(@board, @post), notice: "Comment has been updated"
+    else
+      redirect_to board_post_path(@board, @post), notice: "Error occured while updating comment"
+    end
+  end
+
+  def destroy
+    @comment = Comment.find params[:id]
+    @post = Post.find params[:post_id]
+    @board = Board.find params[:board_id]
+    authorize! :destroy, @comment
+
+    @comment.destroy
+    redirect_to board_post_path(@board, @post), notice: "Comment has been deleted"
   end
 
 private
 
-  def comment_params
+  def create_comment_params
     params.require(:comment).permit(:body, :author_id, :post_id)
+  end
+
+  def edit_comment_params
+    params.require(:comment).permit(:body)
   end
 
 end

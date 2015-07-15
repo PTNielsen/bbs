@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   check_authorization unless: :devise_controller?
 
   rescue_from CanCan::AccessDenied do
-    redirect_to :back, notice: "You must log in to proceed"
+    redirect_to :back, notice: "You are not authorized to see this page"
   end
 end

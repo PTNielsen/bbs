@@ -38,7 +38,11 @@ class PostsController < ApplicationController
     @board = Board.find params[:board_id]
     @post.update(edit_post_params)
 
-    redirect_to board_post_path(@board, @post), notice: "Post information updated"
+    if @post.save
+      redirect_to board_post_path(@board, @post), notice: "Post information updated"
+    else
+      redirect_to board_post_path(@board, @post), notice: "Insufficient Privileges"
+    end
   end
 
   def destroy
