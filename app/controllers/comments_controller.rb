@@ -12,7 +12,9 @@ class CommentsController < ApplicationController
     @board = Board.find params[:board_id]
     authorize! :create, @comment
     if @comment.save
-      redirect_to board_post_path(@board, @post), notice: "Comment posted"
+      redirect_to board_post_path(@board, @post, current_user), notice: "Comment posted"
+      binding.pry
+      CommentMailer.comment_made(@post, current_user).deliver_later
     else
       render :new, notice: "Comment failed to be saved"
     end
